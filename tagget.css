@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+/**
+ * CSS for LighediTor 
+ *
+ * http://ligheditor.sourceforge.jp/
+ *
+ * Licensed under the MIT license.
+ * Copyright (c) 2009 tnantoka
+ *
+ * version 
+ */
+
+/* reset */
+div.ligh_wrapper p {
+	margin: 0;
+	padding: 0;
+}
+
+/* wrapper */
+div.ligh_wrapper {
+	text-align: center;
+}
+
+/* menu */
+div.ligh_menu ul {
+	margin: 0 1px 0 0;
+	padding: 3px 4px;
+	list-style-type: none;
+	float: left;
+}
+
+div.ligh_menu p {
+	margin: 0 1px 0 3px;
+	padding: 2px;
+	float: left;
+	height: 100%;
+}
+
+div.ligh_menu li {
+	float: left;
+	margin-right: 2px;
+}
+
+div.ligh_menu ul li a {
+	display: block;
+	padding: 1px 10px;
+	font-weight: bold;
+}
+
+/* タグボタン後で改行 */
+div.ligh_edit {
+	clear:both;
+}
+/* main */
+p.ligh_main textarea {
+	width: 99%;
+	font-family: monospace;
+}
+
+/* suggest */
+ul.ligh_suggest {
+	padding: 0;
+	margin: 1em 0 0 0;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	z-index: 1;
+	list-style-type: none;
+	border: 1px solid #ccc;
+	font-size: 88%;
+	font-family: monospace;
+	background-color: #fcfcfc;
+}
+
+ul.ligh_suggest li {
+	padding: 0 3px;
+	margin: 0;
+}
+
+ul.ligh_suggest li.ligh_current {
+	background-color: #789;
+	color: #fff;
+}
+
+/* dummy */
+pre.ligh_dummy {
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding: 0;
+	margin: 0;
+	visibility: hidden;
+	text-align: left;
+}
+
