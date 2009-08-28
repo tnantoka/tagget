@@ -1,19 +1,19 @@
 /**
- * LighediTor: Not WYSIWYG Editor (jQuery Plugin)
+ * tagget: Not WYSIWYG Editor (jQuery Plugin)
  * Simple interface and good suggestions.
  *
- * http://ligheditor.sourceforge.jp/
+ * http://tagget.org/
  *
  * Licensed under the MIT license.
- * Copyright (c) 2009 tnantoka
+ * Copyright (c) 2009 tagget.org
  *
- * version 
+ * version 0.1.0
  */
  
 (function($) {
 
-	// $('textarea.ligh_editor').ligheditor()とかで呼び出し
-	$.fn.ligheditor = function(conf) {
+	// $('textarea.tagget').tagget()とかで呼び出し
+	$.fn.tagget = function(conf) {
 
 		// 入力補完候補
 		var keywords = {
@@ -169,13 +169,13 @@
 		// 追加の入力候補
 		conf.keys = $.extend(conf.keys, keywords);
 
-		// thisには$('textarea.ligh_editor')が入ってくる
+		// thisには$('textarea.tagget')が入ってくる
 
 		this.each(function() {
 
 //				var tmp = this.value;
 				// 初期化中メッセージ
-//				this.value = 'Initializing LighediTor...';
+//				this.value = 'Initializing tagget...';
 			
 				init(this, conf);
 				
@@ -186,7 +186,7 @@
 		// This is jQuery!!
 		return this;
 		
-	}; // $.fn.ligheditor
+	}; // $.fn.tagget
 
 	// contextに依存しない関数
 	
@@ -242,7 +242,7 @@
 	};
 
 
-	// ligheditor初期化
+	// tagget初期化
 	var init = function(textarea, conf) {
 	
 		var t = $(textarea);
@@ -343,7 +343,7 @@
 				}
 
 				for(var key in conf.keys) {
-					if (t.hasClass('ligh_' + key) || t.hasClass(key)) {
+					if (t.hasClass('tagget_' + key) || t.hasClass(key)) {
 						words = words.concat(conf.keys[key]);
 					}
 				}
@@ -468,16 +468,16 @@
 		
 		// 全体の枠を作ってその参照を取得
 		// wrapの場合、普通にやると参照を取得できないのでparentsで取得
-		var wrapper = t.wrap('<div class="ligh_wrapper"><p class="ligh_main"></p></div>')
-			.parents('div.ligh_wrapper');
+		var wrapper = t.wrap('<div class="tagget_wrapper"><p class="tagget_main"></p></div>')
+			.parents('div.tagget_wrapper');
 
 		// 必要に応じてツールバーを追加
 		var menu = (conf.tags || conf.edit) ?
-			wrapper.prepend(('<div class="ligh_menu"></div>')).children('div.ligh_menu') : null;
+			wrapper.prepend(('<div class="tagget_menu"></div>')).children('div.tagget_menu') : null;
 	
 		// タグ挿入ボタン
 		if (conf.tags) {
-			var tags = $('<ul class="ligh_tags"></ul>')
+			var tags = $('<ul class="tagget_tags"></ul>')
 				.append('<li><a href="#">a</a></li>')
 				.append('<li><a href="#">p</a></li>')
 				.append('<li><a href="#">ul</a></li>')
@@ -499,11 +499,11 @@
 
 		// 編集機能
 		if (conf.edit) {
-			var edit = $('<div class="ligh_edit"></div>');
+			var edit = $('<div class="tagget_edit"></div>');
 			
 			// 選択範囲変換
 			edit.append(
-				$('<p class="ligh_encode"></p>').append(
+				$('<p class="tagget_encode"></p>').append(
 					$('<select></selected>')
 						.append('<option selected="selected" value="">選択範囲を変換</option>')
 						.append('<option value="entity">&amp &lt; &gt; → &amp;amp; &amp;lt; &amp;gt;</option>')
@@ -517,7 +517,7 @@
 
 			// 置換
 			edit.append(
-				$('<p class="ligh_replace"></p>')
+				$('<p class="tagget_replace"></p>')
 					.append('<input type="text" value="置換前" />')
 					.append(' → ')
 					.append('<input type="text" value="置換後" />')
@@ -542,14 +542,14 @@
 		var body = $(document.body);
 
 		// suggestion用の要素作成
-		var suggest = $('<ul class="ligh_suggest"></ul>');
+		var suggest = $('<ul class="tagget_suggest"></ul>');
 		body.append(suggest);
 
 		// Firefox用dummy生成
 		// カーソル座標取得に使用
 		if (window.getComputedStyle) {
 			
-			var dummy = $('<pre class="ligh_dummy"></pre>');
+			var dummy = $('<pre class="tagget_dummy"></pre>');
 
 			// textareaのstyleをdummyにコピー
 			var onResize = function() {
@@ -724,7 +724,7 @@
 			};
 		
 			// onchangeイベント設定
-			edit.find('.ligh_encode select').change(function() {
+			edit.find('.tagget_encode select').change(function() {
 			
 				switch (this.value) {
 				
@@ -760,7 +760,7 @@
 			
 			// 置換ボタンクリックで置換
 			// 正規表現使用可
-			var inputs = edit.find('.ligh_replace input');
+			var inputs = edit.find('.tagget_replace input');
 			inputs.filter('[type=button]').click(function() {
 
 				var val = textarea.value;
@@ -801,14 +801,14 @@
 						var li = $('<li></li>').attr('title', suggests.insert[i])
 							.append('<a href="#"></a>').text(suggests.view[i])
 							.hover(function() {
-								suggest.children('li').removeClass('ligh_current');
-								$(this).addClass('ligh_current');
+								suggest.children('li').removeClass('tagget_current');
+								$(this).addClass('tagget_current');
 							})
 							.click(function() {
-								insert(unescapeHtml(suggest.children('li.ligh_current').attr('title')));
+								insert(unescapeHtml(suggest.children('li.tagget_current').attr('title')));
 								suggest.hide();
 							});
-						if (i == 0) li.addClass('ligh_current');
+						if (i == 0) li.addClass('tagget_current');
 						suggest.append(li);
 					}	
 
@@ -855,7 +855,7 @@
 
 				var n = '\n'
 				
-				if ((t.hasClass('html') || t.hasClass('ligh_html')) && suggest.css('display') == 'none') {
+				if ((t.hasClass('html') || t.hasClass('tagget_html')) && suggest.css('display') == 'none') {
 					n = '<br />\n';
 				}
 				
@@ -913,10 +913,10 @@
 						
 							var li = lis.eq(i);
 							
-							if(li.hasClass('ligh_current')) {
-								li.removeClass('ligh_current');
+							if(li.hasClass('tagget_current')) {
+								li.removeClass('tagget_current');
 								i = (i == 0) ? lis.length - 1 : i - 1;
-								lis.eq(i).addClass('ligh_current');
+								lis.eq(i).addClass('tagget_current');
 								break;
 							}
 						
@@ -931,10 +931,10 @@
 						
 							var li = lis.eq(i);
 							
-							if(li.hasClass('ligh_current')) {
-								li.removeClass('ligh_current');
+							if(li.hasClass('tagget_current')) {
+								li.removeClass('tagget_current');
 								i = (i == lis.length - 1 ) ? 0 : i + 1;
-								lis.eq(i).addClass('ligh_current');
+								lis.eq(i).addClass('tagget_current');
 								break;
 							}
 						
@@ -943,7 +943,7 @@
 
 					// Enterで補完
 					case 13:
-						insert(unescapeHtml(suggest.children('li.ligh_current').attr('title')));
+						insert(unescapeHtml(suggest.children('li.tagget_current').attr('title')));
 						suggest.hide();
 
 						return false;
