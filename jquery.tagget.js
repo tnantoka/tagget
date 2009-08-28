@@ -1,6 +1,5 @@
 /**
  * tagget: Not WYSIWYG Editor (jQuery Plugin)
- * Simple interface and good suggestions.
  *
  * http://tagget.org/
  *
