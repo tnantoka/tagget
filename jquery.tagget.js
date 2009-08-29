@@ -1,5 +1,5 @@
 /**
- * tagget: Not WYSIWYG Editor (jQuery Plugin)
+ * tagget: The Simple HTML Editor (jQuery Plugin)
  *
  * http://tagget.org/
  *
