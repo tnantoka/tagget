@@ -532,6 +532,7 @@
 		},
 		
 		// suggestionを表示
+		// TODO: 候補数制限 or 高さ設定してスクロール
 		showPopup: function(t) {
 	
 			var popup = this.getPopup(t);
