@@ -890,25 +890,27 @@
 							var sTag = sTags[i].replace(/^.*<|[\s>].*/g, '');
 
 							var j = 0;
-							for (; j < eTags.length > 0; j++) {
+							for (; j < eTags.length; j++) {
 
 								var eTag = eTags[j].replace(/^.*<\/|[\s>].*/g, '');
+
+								// マッチしたらその閉じタグを配列から消して除外
 								if (sTag == eTag) {
 									break;
 								}
 							}
 
-							console.log(eTags[j]);
-							eTags.splice(j, 1);
-
-							console.log(sTag + ':' + eTag);						
-							// 閉じタグとマッチしなければその開始タグを閉じる	
-							if (sTag != eTag) {
+							if (j < eTags.length) {
+								eTags.splice(j, 1);
+								
+							// マッチしなかったらその開始タグを閉じる
+							} else {
 								break;
 							}
-					
+
 					}
 
+					// 現在の開始タグを閉じる
 					// 全てマッチしたら何もしない
 					if (i >= 0) {
 						Cursor.insert(t, '</' + sTags[i].replace(/^.*<|[\s>].*/g, '') + '>');
