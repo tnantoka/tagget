@@ -1052,7 +1052,8 @@
 		// keyup（発生タイミングが一番少ない）で候補表示
 		$(t).keyup(function(e) {
 		
-			if(!(37 <= e.which && e.which <= 40)) {
+			// 十字キー、Enterの時は補完を表示しない
+			if(!(37 <= e.which && e.which <= 40) && !(e.which == 13)) {
 				Wrapper.showPopup(t);
 			} else if(e.which == 37 || e.which == 39) {
 				Wrapper.getPopup(t).hide();
