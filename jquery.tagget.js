@@ -876,8 +876,8 @@
 				// TODO:できれば一文でやりたい
 				var sTags = Cursor.getText(t, /^[\s\S]*$/)[0]
 					.replace(/<[!\?\/][\s\S]*?>/g, '')	// <!?/を除去
-					.replace(/<[^\>]*?\/>/g, '')		// 空要素/>を除去
-					.match(/<[\s\S]*?>/g);				// タグ抽出
+					.replace(/<[^>]*?\/>/g, '')		// 空要素/>を除去
+					.match(/<[^>]+?>/g);				// タグ抽出
 				var eTags = Cursor.getText(t, /<\/[^?]+?>/g);
 				
 				if (sTags) {
@@ -1147,7 +1147,10 @@
 		});
 
 		// 最初に1回だけ呼び出し。
-		t.value = Cookie.unzip(Cookie.load(Wrapper.getId(t)));
+		var data = Cookie.load(Wrapper.getId(t));
+		if (data) {
+			t.value = Cookie.unzip(data);
+		}
 		Wrapper.setLine(t);
 	
 	}; // init
