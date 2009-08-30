@@ -879,8 +879,6 @@
 					.replace(/<[^\>]*?\/>/g, '')		// 空要素/>を除去
 					.match(/<[\s\S]*?>/g);				// タグ抽出
 				var eTags = Cursor.getText(t, /<\/[^?]+?>/g);
-				console.log(sTags);
-				console.log(eTags);
 				
 				if (sTags) {
 				
@@ -890,7 +888,18 @@
 					
 							// <までとタグ名以降を除去
 							var sTag = sTags[i].replace(/^.*<|[\s>].*/g, '');
-							var eTag = eTags.shift().replace(/^.*<\/|[\s>].*/g, '');
+
+							var j = 0;
+							for (; j < eTags.length > 0; j++) {
+
+								var eTag = eTags[j].replace(/^.*<\/|[\s>].*/g, '');
+								if (sTag == eTag) {
+									break;
+								}
+							}
+
+							console.log(eTags[j]);
+							eTags.splice(j, 1);
 
 							console.log(sTag + ':' + eTag);						
 							// 閉じタグとマッチしなければその開始タグを閉じる	
