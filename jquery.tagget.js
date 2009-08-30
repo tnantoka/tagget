@@ -864,30 +864,45 @@
 		/**
 		 * 閉じタグ補完
 		 */
-		 //TODO: ロジック見直し
+		// カーソル位置より前にある開始タグをさかのぼって見ていく
+		// 閉じタグが何もなければ直近のタグを閉じる
+		// 閉じタグとマッチしないタグがあれば閉じる
+		// カーソル後に閉じタグがあるとかは無視
+		// 整形式じゃないのも無視
 		 closeTag: function(t) {
-		 
-		 				//                  <<-tag name-><----------attr-------------><->->
-				var sTag = Cursor.getText(t, /<\s*[^\/!?=]+?(?:\s*[^=>\s]+?\s*=\s*["']?.*?["']?\s*)*\s*>/g);
-				var sTag2 = Cursor.getText(t, /<\s*[^\/!?=]+?(?:\s*[^=>\s]+?\s*=\s*["']?.*?["']?\s*)*\s*>/g, true);
-				var eTag = Cursor.getText(t, /<\s*\/\s*.+?\s*>/g);
-				var eTag2 = Cursor.getText(t, /<\s*\/\s*.+?\s*>/g, true);
-/*
-				console.log('s:'+sTag);
-				console.log('s2:'+sTag2);
-				console.log('e:'+eTag);
-				console.log('e2:'+eTag2);
-*/
-				// 整形式じゃなさそうなのはとりあえず無視
-				if (sTag.length + sTag2.length > eTag.length + eTag2.length) {
+
+				// カーソルより前の開始タグ一覧
+				// <! <? </ 空要素/>は除く
+				// TODO:できれば一文でやりたい
+				var sTags = Cursor.getText(t, /^[\s\S]*$/)[0]
+					.replace(/<[!\?\/][\s\S]*?>/g, '')	// <!?/を除去
+					.replace(/<[^\>]*?\/>/g, '')		// 空要素/>を除去
+					.match(/<[\s\S]*?>/g);				// タグ抽出
+				var eTags = Cursor.getText(t, /<\/[^?]+?>/g);
+				console.log(sTags);
+				console.log(eTags);
 				
-					for (var i = sTag.length - 1; i >= 0; i--) {
+				if (sTags) {
+				
+					var i = sTags.length - 1;
+						
+					for (; i >= 0 && eTags.length > 0; i--) {
 					
-						var s = sTag[i].replace(/^.*<|[\s>].*/g, '');
-						if (!eTag || eTag.length == 0 || s != eTag.shift().replace(/^.*\/|>.*/g, '')) {
-							Cursor.insert(t, '</' + s + '>');
-							break;
-						}
+							// <までとタグ名以降を除去
+							var sTag = sTags[i].replace(/^.*<|[\s>].*/g, '');
+							var eTag = eTags.shift().replace(/^.*<\/|[\s>].*/g, '');
+
+							console.log(sTag + ':' + eTag);						
+							// 閉じタグとマッチしなければその開始タグを閉じる	
+							if (sTag != eTag) {
+								break;
+							}
+					
+					}
+
+					// 全てマッチしたら何もしない
+					if (i >= 0) {
+						Cursor.insert(t, '</' + sTags[i].replace(/^.*<|[\s>].*/g, '') + '>');
 					}
 
 				}
