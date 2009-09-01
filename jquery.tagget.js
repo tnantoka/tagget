@@ -349,13 +349,18 @@
 		
 		},
 
+		getToolbar: function(t) {
+		
+			return $(t).parents('.tagget_wrapper').children('.tagget_toolbar');
+		
+		},
 
 		// wrap要素にeventを設定する。
 		// 既にHTMLがあった場合は、こちらだけを行う。
 		relate: function(t) {
 		
-			var toolbar = $(t).parents('.tagget_wrapper').children('.tagget_toolbar');
-
+			var toolbar = this.getToolbar(t);
+			
 			// 選択範囲変換
 			// onchangeイベント設定
 			toolbar.find('.tagget_encode select').change(function() {
@@ -450,6 +455,13 @@
 			var currentType = $(t).parents('.tagget_wrapper')
 				.find('.tagget_type select').val();
 			return (new RegExp(currentType)).test(type);
+		},
+
+		
+		checkCookie: function(t) {
+			var cookie = $(t).parents('.tagget_wrapper')
+				.find('.tagget_cookie input').attr('checked');
+			return cookie;
 		},
 
 		checkIntelli: function(t) {
@@ -993,7 +1005,26 @@
 				top: top
 			};
 			
+		}, 
+		
+		fillZero: function(s) {
+		    return ('0' + s).slice(-2); 
+		}, 
+		
+		now: function() {
+		
+				var date = new Date();
+				var y = date.getFullYear();
+				var m = this.fillZero(date.getMonth() + 1);
+				var d = this.fillZero(date.getDate());
+				var h = this.fillZero(date.getHours());
+				var min = this.fillZero(date.getMinutes());
+				var sec = this.fillZero(date.getSeconds());
+
+				return y + '/' + m + '/' + d + '/' + ' ' + h + ':' + min + ':' + sec;
+
 		}
+		
 	};
 
     /* ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- */
@@ -1090,7 +1121,8 @@
 			if (e.shiftKey && e.which == 13) {
 
 				var n = '\n';
-				if (!Wrapper.isPopup(t) && Wrapper.checkType(t, 'html')) {
+//				if (!Wrapper.isPopup(t) && Wrapper.checkType(t, 'html')) {
+				if (Wrapper.checkType(t, 'html')) {
 					n = '<br />';
 				}
 				Cursor.insert(t, n);
@@ -1101,9 +1133,13 @@
 			// Ctrl+Enterで閉じタグ補完
 			if (e.ctrlKey && e.which == 13) {
 
-				Cursor.closeTag(t);
+				if (Wrapper.checkType(t, 'html')) {
+
+					Cursor.closeTag(t);
+					return false;
+
+				}
 			
-				return false;
 			}
 
 			// 十字キーで候補選択
@@ -1210,27 +1246,18 @@
 
 			self.each(function() {
 
-				Cookie.save(Wrapper.getId(this), Cookie.zip(this.value));
+				if (Wrapper.checkCookie(this)) {
 
-				var fillZero = function(s) {
-				    return ('0' + s).slice(-2); 
-				};
-				var status = Wrapper.getStatus(this);	
-				var date = new Date();
-				var y = date.getFullYear();
-				var m = fillZero(date.getMonth() + 1);
-				var d = fillZero(date.getDate());
-				var h = fillZero(date.getHours());
-				var min = fillZero(date.getMinutes());
-				var sec = fillZero(date.getSeconds());
-				status.children('.tagget_time')
-					.html('Draft Saved At ' + 
-						y + '/' + m + '/' + d + '/' + ' ' + h + ':' + min + ':' + sec);
+					Cookie.save(Wrapper.getId(this), Cookie.zip(this.value));
+
+					var status = Wrapper.getStatus(this);	
+					status.children('.tagget_time').html('Draft Saved At ' + Util.now());
+
+				}
 				
 				setTimeout(timer, interval);
 			});		
 		}, interval);
-			
 			
 		// This is jQuery!!
 		return this;
