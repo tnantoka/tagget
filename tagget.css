@@ -66,6 +66,7 @@ div.tagget_wrapper p.tagget_status {
 /* inputの余白調整 */
 div.tagget_toolbar p.tagget_replace input {
 	margin: 0px 3px;
+	width: 8em;
 }
 
 div.tagget_toolbar p.tagget_replace img {
