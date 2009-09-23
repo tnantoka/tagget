@@ -39,7 +39,7 @@ div.tagget_toolbar p.tagget_type {
 	padding-bottom: 3px;
 }
 
-/* cookieのフォント調整 */
+/* selectラベルのフォント調整 */
 div.tagget_toolbar p.tagget_intelli,
 div.tagget_toolbar p.tagget_cookie {
 	border-right: none;
@@ -74,9 +74,6 @@ div.tagget_toolbar p.tagget_replace img {
 }
 
 /* main */
-p.tagget_main {
-}
-
 p.tagget_main textarea {
 	font-family: monospace;
 	width: 99%;

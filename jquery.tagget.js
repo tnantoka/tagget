@@ -19,9 +19,6 @@
 	 */
 	var Suggester = {
 	
-		// 入力データを利用した補完を行うか
-		byInputs: true,
-
 		keywords: {	
 		
 			html: (function() {
@@ -464,6 +461,7 @@
 			return cookie;
 		},
 
+		// 入力データを利用した補完を行うか
 		checkIntelli: function(t) {
 			var intelli = $(t).parents('.tagget_wrapper')
 				.find('.tagget_intelli input').attr('checked');
@@ -1073,41 +1071,36 @@
 	
 	};
 
-
     /* ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- */
-	// tagget初期化
-	var init = function(t, i) {
+	/**
+	 * textareaのEventに設定する関数群
+	 */
+	Event = {
 	
-		// 被らないコードを振る
-		while ($('textarea').is('.tagget_' + i)) {
-			i = '0' + i;
-		}
-		$(t).addClass('tagget_' + i);
-
-		Wrapper.wrap(t);
-		Wrapper.absolutes(t);
-
-//		setTimeout(function() {
-//		
-//		});
-
-		// イベント設定
-
-		// keyup（発生タイミングが一番少ない）で候補表示
-		$(t).keyup(function(e) {
+		// keyupは発生タイミングが一番少ない
+		// 候補表示に使用
+		keyup: function(e) {
+		
+			var t = this;
 		
 			// 十字キー、Enterの時は補完を表示しない
 			if(!(37 <= e.which && e.which <= 40) && !(e.which == 13)) {
 				Wrapper.showPopup(t);
-			} else if(e.which == 37 || e.which == 39) {
+				
+			} 
+			// 左右キーで補完を非表示化
+			else if(e.which == 37 || e.which == 39) {
 				Wrapper.getPopup(t).hide();
 			}
 			
 			Wrapper.setLine(t);
-		})
-
-		// 入力キーに応じた処理		
-		.keydown(function(e) {
+		}, 
+		
+		// 入力内容に応じた処理はdownで
+		// press,upだとおかしくなるものもこっちで
+		keydown: function(e) {
+		
+			var t = this;
 		
 			// タブキャンセル
 			// keydown以外だとうまくいかない
@@ -1117,16 +1110,16 @@
 			}
 
 			// Shift+Enterで改行 or <br />入力
-			// 補完却下も可能
 			if (e.shiftKey && e.which == 13) {
 
 				var n = '\n';
-//				if (!Wrapper.isPopup(t) && Wrapper.checkType(t, 'html')) {
 				if (Wrapper.checkType(t, 'html')) {
 					n = '<br />';
 				}
 				Cursor.insert(t, n);
 				
+				// 補完処理終了。
+				// 以下同様で後続処理は行わない
 				return false;
 			}
 
@@ -1194,7 +1187,31 @@
 			
 			}
 
-		});
+		}
+	
+	};
+
+
+    /* ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- */
+	// tagget初期化
+	var init = function(t, i) {
+	
+		// 被らないコードを振る
+		while ($('textarea').is('.tagget_' + i)) {
+			i = '0' + i;
+		}
+		$(t).addClass('tagget_' + i);
+
+		Wrapper.wrap(t);
+		Wrapper.absolutes(t);
+
+		// イベント設定
+
+		// keyup（発生タイミングが一番少ない）で候補表示
+		$(t).keyup(Event.keyup)
+
+		// 入力キーに応じた処理		
+		.keydown(Event.keydown);
 
 		// 最初に1回だけ呼び出し。
 		var data = Cookie.load(Wrapper.getId(t));
