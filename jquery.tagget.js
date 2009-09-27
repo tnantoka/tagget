@@ -77,10 +77,16 @@
 					'<dt>#{c}</dt>\n',
 					'<dt>#{c}</dd>\n',
 
+					'<table>\n#{c}\n</table>\n',
+					'<tr>#{c}</tr>',
+					'<th>#{c}</th>',
+					'<td>#{c}</td>',
+
 					'<strong>#{c}</strong>',
 					'<em>#{c}</em>',
 
 					'<form>\n#{c}\n</form>',
+					'<fieldset>#{c}</fieldset>',
 					'<input type="#{c}" />',
 
 					'<!--',
@@ -91,9 +97,16 @@
 				// 属性		
 				var attributes = [
 					'href="#{c}"',
+					'src="#{c}"',
+					'cols="#{c}"',
+					'rows="#{c}"',
 					'id="#{c}"',
 					'class="#{c}"',
 					'style="#{c}"',
+
+					'colspan="#{c}"',
+					'rowspan="#{c}"',
+					'border="#{c}"',
 
 					'onload="#{c}"',
 					'onclick="#{c}"',
@@ -153,7 +166,23 @@
 					'margin-left: ',
 					'margin-top: ',
 					'margin-bottom: ',
+					
 					'padding: ',
+					'padding-right: ',
+					'padding-left: ',
+					'padding-top: ',
+					'padding-bottom: ',
+					
+					'border: ',
+					'border-right: ',
+					'border-left: ',
+					'border-top: ',
+					'border-bottom: ',
+					
+					'background: ',
+					'background-color: ',
+					'background-repeat: ',
+					
 					'float: ',
 					'clear: '
 				];
