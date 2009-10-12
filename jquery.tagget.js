@@ -326,7 +326,7 @@
 				toolbar.append(
 					$('<p class="tagget_replace"></p>')
 						.append('<input type="text" value="Before" title="置換前" />')
-						.append('<img src="img/v_arrow010102.gif" />')
+						.append('<img src="tagget/img/v_arrow010102.gif" />')
 						.append('<input type="text" value="After" title="置換後" />')
 						.append('<input type="button" value="Replace All" title="全て置換" />')
 				);
