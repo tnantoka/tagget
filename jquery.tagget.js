@@ -867,7 +867,7 @@
 
 				// 改行がたくさんある場合スクロールバーを下にずらす
 				if (/\n/g.test(s) && s.match(/\n/g).length > 2) {
-					top += parseInt(getComputedStyle(t, '').getPropertyValue('line-height'), 10);
+					top += parseInt(getComputedStyle(t, '').getPropertyValue('font-size'), 10) + 3;
 				}
 				
 				// スクロールバーを戻す
@@ -1206,9 +1206,10 @@
 					var indent = Cursor.getText(t, /^[\t ]*/mg);
 					Cursor.insert(t, '\n' + (indent ? indent[indent.length - 1] : ''));
 
+					// TODO:もっとちゃんとスクロールの高さ直す
 					var $t = $(t);
 					if (window.getComputedStyle) {
-						$t.scrollTop($t.scrollTop() + parseInt(getComputedStyle(t, '').getPropertyValue('line-height'), 10));
+						$t.scrollTop($t.scrollTop() + parseInt(getComputedStyle(t, '').getPropertyValue('font-size'), 10) + 3);
 					}
 					
 					return false;
