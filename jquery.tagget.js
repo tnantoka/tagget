@@ -197,8 +197,33 @@
 
 				return props.concat(values);		
 			
-			})()
+			})(),
 			
+			html5: (function() {
+			
+				var elm = [
+				
+				];
+				
+				var attr = [
+
+				];
+			
+				return elm.concat(attr);
+			
+			})(),
+
+			css3: (function() {
+			
+				var prop = [
+				];
+				
+				var val = [
+				];
+				
+				return prop.concat(val);
+			
+			})()
 			
 		}, // keywords
 	
