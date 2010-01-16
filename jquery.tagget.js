@@ -1179,7 +1179,7 @@
 			}
 
 			// Ctrl+Enterで閉じタグ補完
-			if (e.ctrlKey && e.which == 13) {
+			if (e.metaKey && e.which == 13) {
 
 				if (Wrapper.checkType(t, 'html')) {
 
