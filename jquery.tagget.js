@@ -752,7 +752,7 @@
 			var start, end;
 
 			// IE
-			if (document.selection) {
+			if (document.selection && !window.opera) {
 
 //				t.focus(); // focusなしでもいける
 
@@ -805,7 +805,7 @@
 
 			var x, y;
 
-			if (document.selection) {
+			if (document.selection && !window.opera) {
 			
 				var range = document.selection.createRange();
 				x = range.offsetLeft + 
@@ -855,7 +855,7 @@
 			t.focus(); 
 
 			// for IE
-			if (document.selection) {
+			if (document.selection && !window.opera) {
 				
 				// 選択範囲を取得
 				var range = document.selection.createRange();
@@ -912,7 +912,7 @@
 			t.focus(); 
 
 			// IE
-			if (document.selection) {
+			if (document.selection && !window.opera) {
 			
 				var range = document.selection.createRange();
 				range.text = func(range.text);
