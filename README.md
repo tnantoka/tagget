@@ -10,7 +10,7 @@ Lightweight html editor on &lt;textarea&gt;
 
 ## Demo
 
-[http://tagget.bornneet.com/?demo][http://tagget.bornneet.com/?demo] 
+[http://tagget.bornneet.com/?demo](http://tagget.bornneet.com/?demo)
 
 ## License 
 
