@@ -3,7 +3,7 @@
 Lightweight html editor on &lt;textarea&gt;
 (jQuery plugin)
 
-# Features
+## Features
 
 * Suggest (Auto complete)
 * Save draft
