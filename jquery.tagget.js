@@ -1,13 +1,3 @@
-/**
- * tagget: The Simple HTML Editor (jQuery Plugin)
- *
- * http://tagget.org/
- *
- * Licensed under the MIT license.
- * Copyright (c) 2009 tagget.org
- *
- * version 0.1.1
- */
 (function($) {
 
     /* ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- */
