@@ -279,10 +279,10 @@
         // Repcalce
         toolbar.append(
           $('<p class="tagget_replace"></p>')
-            .append('<input type="text" placeholder="Before" />')
-            .append('<img src="tagget/img/v_arrow010102.gif" />')
-            .append('<input type="text" placeholder="After" />')
-            .append('<input type="button" value="Replace All" />')
+            .append('<input type="text" placeholder="Before" size="15" />')
+            .append(' <img src="data:image/gif;base64,R0lGODlhDAAMALMLAFBQUHBwcH9/f9DQ0LCwsGBgYPDw8MDAwKCgoJCQkP///////wAAAAAAAAAAAAAAACH5BAEAAAsALAAAAAAMAAwAAAQwcMlJ6zoo2XmU0tuCeAI1HEQ2GEopHawnK4FExLNSSEmaICvdRuABbDrCTQKwC4UiADs=" alt="→" /> ')
+            .append('<input type="text" placeholder="After" size="15" />')
+            .append(' <input type="button" value="Replace All" />')
         );
 
         // File type

@@ -1,16 +1,15 @@
-@charset "UTF-8";
+@charset "UTF-8" !important;
 
 /* reset */
 div.tagget_wrapper * {
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* wrapper */
 div.tagget_wrapper {
-  text-align: center;
-  width: 100%;
-  font-size: 88%;
+  text-align: center !important;
+  width: 100% !important;
 /*  
   background: #ddd;
   -moz-border-radius: 10px;
@@ -19,36 +18,44 @@ div.tagget_wrapper {
 */
 }
 
-/* menu */
+/* toolbar */
 div.tagget_toolbar p {
   float: left;
-  padding: 0.5em;
+  padding: 0.5em !important;
+  font-size: 88%;
+}
+
+div.tagget_toolbar img {
+  vertical-align: middle;
 }
 
 /* main */
 p.tagget_main {
   clear: both;
-  width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 p.tagget_main textarea {
   font-family: monospace;
-  width: 99%;
+  width: 99% !important;
+  max-width: 99% !important;
 }
 
 /* status */
 div.tagget_wrapper p.tagget_status {
   text-align: right;
-  margin-right: 0.5em;
+  margin-right: 0.5em !important;
   font-size: 88%;
-  margin-top: -2em;
+  margin-top: -2em !important;
+  margin-bottom: 2em !important;
   color: #555;
 }
 
 /* popup */
 ul.tagget_popup {
-  padding: 0;
-  margin: 1em 0 0 0;
+  padding: 0 !important;
+  margin: 1em 0 0 0 !important;
   position: absolute;
   left: 0;
   top: 0;
@@ -59,11 +66,12 @@ ul.tagget_popup {
   font-family: monospace;
   background-color: #fcfcfc;
   text-align: left;
+  font-size: 88%;
 }
 
 ul.tagget_popup li {
-  padding: 1px 3px;
-  margin: 0;
+  padding: 1px 3px !important;
+  margin: 0 !important;
   color: #333;
 }
 
@@ -76,9 +84,11 @@ pre.tagget_dummy {
   position: absolute;
   left: 0;
   top: 0;
-  padding: 0;
-  margin: 0;
+  padding: 0 !important;
+  margin: 0 !important;
   visibility: hidden;
+  text-align: left;
+  font-family: monospace;
 }
 
 /* hide type */
