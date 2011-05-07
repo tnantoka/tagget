@@ -360,12 +360,6 @@
 					)
 				);
 
-				// Cookie
-				toolbar.append(
-					$('<p class="tagget_cookie"></p>')
-						.append('<input type="checkbox" checked="checked" title="Cookieに下書きを保存" id="tagget_check_cookie" /><label for="tagget_check_cookie" title="Cookieに下書きを保存">Cookie</label>')
-				);
-
 				// intelligent
 				// 入力内容を使用した補完
 				toolbar.append(
@@ -500,12 +494,6 @@
 		},
 
 		
-		checkCookie: function(t) {
-			var cookie = $(t).parents('.tagget_wrapper')
-				.find('.tagget_cookie input').attr('checked');
-			return cookie;
-		},
-
 		// 入力データを利用した補完を行うか
 		checkIntelli: function(t) {
 			var intelli = $(t).parents('.tagget_wrapper')
@@ -1072,52 +1060,6 @@
 
     /* ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- */
 	/**
-	 * Cookieに下書き保存
-	 */
-	var Cookie = {
-	
-		load: function(key) {
-		
-			var cookie = $.cookie(key);
-			if (cookie) {
-				return cookie;
-			}
-		
-		},
-		
-		zip: function(s) {
-
-	    	var data = utf16to8(s);
-	    	data = zip_deflate(data);
-	     	data = base64encode(data);
-			return data;
-		
-		},
-
-		unzip: function(s) {
-
-		    var data = base64decode(s);
-		    data = zip_inflate(data);
-		    data = utf8to16(data);
-			return data;
-		
-		},
-		
-		save: function(key, val) {
-
-			var size = val.length;
-		
-			if(size <= 4000) {
-				$.cookie(key, val, { 'expires': 1 });
-			}
-		
-		}
-	
-	
-	};
-
-    /* ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- */
-	/**
 	 * textareaのEventに設定する関数群
 	 */
 	Event = {
@@ -1259,11 +1201,6 @@
 		// 入力キーに応じた処理		
 		.keydown(Event.keydown);
 
-		// 最初に1回だけ呼び出し。
-		var data = Cookie.load(Wrapper.getId(t));
-		if (data) {
-			t.value = Cookie.unzip(data);
-		}
 		Wrapper.setLine(t);
 	
 	}; // init
@@ -1279,8 +1216,7 @@
 
 		// 設定オブジェクト
 		conf = $.extend({
-			toolbar: true, // ツールバー表示
-			cookie: true  // クッキーに保存
+			toolbar: true // ツールバー表示
 		}, conf);
 
 		// thisには$('textarea.tagget')が入ってくる
@@ -1302,26 +1238,7 @@
 			});
 
 		}).resize();
-		
-		// Cookie保存設定
-		var interval = 60000; // 60秒:1分
-		setTimeout(function timer() {
-
-			self.each(function() {
-
-				if (Wrapper.checkCookie(this)) {
-
-					Cookie.save(Wrapper.getId(this), Cookie.zip(this.value));
-
-					var status = Wrapper.getStatus(this);	
-					status.children('.tagget_time').html('Draft Saved At ' + Util.now());
-
-				}
-				
-				setTimeout(timer, interval);
-			});		
-		}, interval);
-			
+					
 		// This is jQuery!!
 		return this;
 		

@@ -1,12 +1,13 @@
 # tagget
 
-Lightweight html editor on &lt;textarea&gt;
+Lightweight html editor on &lt;textarea&gt;.
 (jQuery plugin)
 
 ## Features
 
-* Suggest (Auto complete)
-* Save draft
+* Suggestion (Auto complete)
+* Replace
+* Encode
 
 ## Demo
 
